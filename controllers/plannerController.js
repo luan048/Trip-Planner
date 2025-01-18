@@ -14,7 +14,7 @@ export async function createPlanner(req, res) {
     }
 }
 
-export async function getAll() {
+export async function getAll(req, res) {
     try {
         const result = await instancePlannerService.getAll()
         return res.status(200).json({result})
@@ -38,10 +38,18 @@ export async function getById(req, res) {
 
 export async function updatePlanner(req, res) {
     const {id} = req.params
-    const {newPlanner} = req.body
+    const {newClient, newCounty, newTravelDate, newReturnDate, newTourAttractions} = req.body
 
     try {
-        await instancePlannerService.upNewPlanner(id, newPlanner)
+        await instancePlannerService.upNewPlanner(
+            id,
+            newClient,
+            newCounty,
+            newTravelDate,
+            newReturnDate,
+            newTourAttractions
+        )
+        
         return res.status(200).json({message: 'Sucessfully'})
     }
     catch(error) {
